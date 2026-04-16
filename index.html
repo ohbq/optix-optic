@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אופטיקס כרכור | אופטיקה מקצועית</title>
+    <meta name="description" content="אופטיקס כרכור - בדיקות ראייה מקצועיות, התאמת עדשות מגע, משקפי שמש ומשקפי ראייה. אופטומטריסט מוסמך. המייסדים 44 כרכור.">
+    <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+        :root {
+            --teal: #1A3F38;
+            --teal-light: #245850;
+            --teal-dark: #0F2A25;
+            --gold: #C6A654;
+            --gold-light: #D4BA76;
+            --gold-pale: #F0E6C8;
+            --cream: #FAF7F0;
+            --white: #FFFFFF;
+            --text: #2C2C2C;
+            --text-light: #6B6B6B;
+            --shadow: 0 4px 30px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 50px rgba(0,0,0,0.12);
+        }
+
+        html { scroll-behavior: smooth }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            color: var(--text);
+            background: var(--white);
+            cursor: default;
+            user-select: none;
+            -webkit-user-select: none;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        img { user-select: none; -webkit-user-drag: none }
+        a { text-decoration: none; color: inherit }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1000;
+            background: rgba(26, 63, 56, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.4s ease;
+            border-bottom: 1px solid rgba(198, 166, 84, 0.15);
+        }
+
+        .header.scrolled {
+            background: rgba(26, 63, 56, 0.98);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .logo-link { display: flex; align-items: center; gap: 12px }
+        .logo-img {
+            height: 64px;
+            width: auto;
+            border-radius: 6px;
+        }
+
+        .nav-desktop { display: flex; gap: 8px; align-items: center }
+        .nav-desktop a {
+            color: rgba(255,255,255,0.8);
+            font-size: 15px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            letter-spacing: -0.2px;
+        }
+        .nav-desktop a:hover { color: var(--gold); background: rgba(198,166,84,0.1) }
+        .nav-desktop a.active { color: var(--gold) }
+
+        .nav-cta {
+            background: var(--gold) !important;
+            color: var(--teal-dark) !important;
+            font-weight: 600 !important;
+            padding: 10px 24px !important;
+            border-radius: 50px !important;
+        }
+        .nav-cta:hover {
+            background: var(--gold-light) !important;
+            transform: translateY(-1px);
+        }
+
+        .header-social {
+            display: flex;
+            gap: 10px;
+        }
+        .header-social a {
+            width: 36px;
+            height: 36px;
+            background: rgba(198,166,84,0.1);
+            border: 1px solid rgba(198,166,84,0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .header-social a:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+        }
+        .header-social a svg { width: 16px; height: 16px; color: var(--gold); transition: color 0.3s }
+        .header-social a:hover svg { color: var(--teal-dark) }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .hamburger svg { width: 26px; height: 26px; color: var(--gold) }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 9998;
+        }
+        .mobile-overlay.open { display: block }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 75%;
+            max-width: 300px;
+            background-color: #0F2A25;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            gap: 8px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            box-shadow: 4px 0 30px rgba(0,0,0,0.5);
+        }
+        .mobile-menu.open { transform: translateX(0) }
+
+        .mobile-menu-close {
+            align-self: flex-end;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-bottom: 24px;
+        }
+        .mobile-menu-close svg { width: 24px; height: 24px; color: var(--gold) }
+
+        .mobile-menu a {
+            color: var(--white);
+            font-size: 20px;
+            font-weight: 500;
+            padding: 14px 16px;
+            border-radius: 8px;
+            text-align: right;
+            transition: color 0.2s ease;
+        }
+        .mobile-menu a:hover { color: var(--gold) }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--teal-dark);
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 50%, var(--teal-light) 100%);
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 600px 600px at 20% 80%, rgba(198,166,84,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 400px 400px at 80% 20%, rgba(198,166,84,0.06) 0%, transparent 70%);
+        }
+
+        .hero-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C6A654' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 24px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text { text-align: right }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(198,166,84,0.15);
+            border: 1px solid rgba(198,166,84,0.3);
+            color: var(--gold-light);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 24px;
+        }
+        .hero-badge-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: pulse 2s ease infinite;
+        }
+        @keyframes pulse {
+            0%,100% { opacity: 1 }
+            50% { opacity: 0.4 }
+        }
+
+        .hero-title {
+            font-size: clamp(36px, 5vw, 60px);
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+        .hero-title .gold { color: var(--gold) }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 2vw, 20px);
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            margin-bottom: 36px;
+            font-weight: 300;
+            max-width: 500px;
+        }
+
+        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gold);
+            color: var(--teal-dark);
+            font-family: 'Heebo', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            padding: 16px 36px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(198,166,84,0.3);
+        }
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(198,166,84,0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: var(--white);
+            font-family: 'Heebo', sans-serif;
+            font-size: 17px;
+            font-weight: 500;
+            padding: 16px 36px;
+            border-radius: 50px;
+            border: 1.5px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(198,166,84,0.05);
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image-frame {
+            position: relative;
+            width: 380px;
+            max-width: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+        }
+
+        .hero-image-frame::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            border: 1px solid rgba(198,166,84,0.2);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .hero-image-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero-float-card {
+            position: absolute;
+            bottom: -20px;
+            right: -30px;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 16px 24px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%,100% { transform: translateY(0) }
+            50% { transform: translateY(-8px) }
+        }
+        .hero-float-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--gold-pale);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-float-icon svg { width: 22px; height: 22px; color: var(--gold) }
+        .hero-float-text { font-size: 13px; color: var(--text-light); line-height: 1.4 }
+        .hero-float-text strong { display: block; color: var(--text); font-size: 15px }
+
+        /* ===== PROMO STRIP ===== */
+        .promo-strip {
+            background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+            padding: 20px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .promo-strip::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 20px,
+                rgba(255,255,255,0.05) 20px,
+                rgba(255,255,255,0.05) 40px
+            );
+        }
+        .promo-text {
+            position: relative;
+            font-size: clamp(18px, 3vw, 26px);
+            font-weight: 800;
+            color: var(--teal-dark);
+            letter-spacing: -0.3px;
+        }
+        .promo-text span {
+            background: var(--teal-dark);
+            color: var(--gold);
+            padding: 4px 14px;
+            border-radius: 8px;
+            margin: 0 6px;
+            display: inline-block;
+        }
+
+        /* ===== SERVICES ===== */
+        .services {
+            padding: 100px 24px;
+            background: var(--cream);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        .section-label {
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 800;
+            color: var(--teal-dark);
+            line-height: 1.3;
+            margin-bottom: 16px;
+        }
+        .section-subtitle {
+            font-size: 17px;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .services-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px 28px;
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.04);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .service-icon svg { width: 28px; height: 28px; color: var(--gold) }
+
+        .service-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--teal-dark);
+            margin-bottom: 10px;
+        }
+        .service-desc {
+            font-size: 15px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            padding: 100px 24px;
+            background: var(--white);
+        }
+
+        .about-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+        .about-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(26,63,56,0.3) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .about-content { text-align: right }
+        .about-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .about-title {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 800;
+            color: var(--teal-dark);
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+        .about-text {
+            font-size: 16px;
+            color: var(--text-light);
+            line-height: 1.9;
+            margin-bottom: 28px;
+        }
+
+        .about-features { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px }
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text);
+        }
+        .about-feature-icon {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            background: var(--gold-pale);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .about-feature-icon svg { width: 18px; height: 18px; color: var(--gold) }
+
+        /* ===== STORE ===== */
+        .store-section {
+            padding: 80px 24px;
+            background: var(--teal-dark);
+            position: relative;
+            overflow: hidden;
+        }
+        .store-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 500px 500px at 80% 50%, rgba(198,166,84,0.06) 0%, transparent 70%);
+        }
+
+        .store-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+        }
+
+        .store-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .store-image img {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .store-content { text-align: right }
+        .store-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .store-title {
+            font-size: clamp(26px, 3.5vw, 36px);
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1.3;
+            margin-bottom: 16px;
+        }
+        .store-text {
+            font-size: 16px;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.9;
+            margin-bottom: 28px;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .stat-item { text-align: center }
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ===== CONTACT ===== */
+        .contact {
+            padding: 100px 24px;
+            background: var(--cream);
+        }
+
+        .contact-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .contact-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px 28px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        .contact-card:hover { transform: translateY(-3px) }
+
+        .contact-icon {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .contact-icon svg { width: 24px; height: 24px; color: var(--gold) }
+
+        .contact-card-label {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+        .contact-card-value {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--teal-dark);
+        }
+        .contact-card-value a { color: var(--teal-dark); transition: color 0.3s }
+        .contact-card-value a:hover { color: var(--gold) }
+
+        .contact-map {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            height: 100%;
+            min-height: 380px;
+        }
+        .contact-map iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        /* ===== CTA BANNER ===== */
+        .cta-banner {
+            padding: 80px 24px;
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 600px 300px at 50% 100%, rgba(198,166,84,0.1) 0%, transparent 70%);
+        }
+        .cta-inner {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .cta-title {
+            font-size: clamp(26px, 4vw, 40px);
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+        .cta-text {
+            font-size: 18px;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 36px;
+            line-height: 1.7;
+        }
+        .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--teal-dark);
+            border-top: 1px solid rgba(198,166,84,0.15);
+            padding: 48px 24px 24px;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .footer-logo {
+            height: 36px;
+            width: auto;
+            border-radius: 6px;
+        }
+        .footer-name {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+        .footer-social a {
+            width: 42px;
+            height: 42px;
+            background: rgba(198,166,84,0.1);
+            border: 1px solid rgba(198,166,84,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .footer-social a:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+        }
+        .footer-social a svg { width: 18px; height: 18px; color: var(--gold); transition: color 0.3s }
+        .footer-social a:hover svg { color: var(--teal-dark) }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 24px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            text-align: center;
+        }
+        .footer-copy {
+            color: rgba(255,255,255,0.35);
+            font-size: 13px;
+        }
+
+        /* ===== WHATSAPP FAB ===== */
+        .whatsapp-fab {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 900;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+            transition: all 0.3s ease;
+            animation: fab-bounce 3s ease infinite;
+        }
+        .whatsapp-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+        }
+        .whatsapp-fab svg { width: 30px; height: 30px; color: white }
+
+        @keyframes fab-bounce {
+            0%,100% { transform: translateY(0) }
+            50% { transform: translateY(-4px) }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .nav-desktop { display: none }
+            .hamburger { display: flex }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 100px;
+            }
+            .hero-text { text-align: center }
+            .hero-subtitle { margin: 0 auto 36px }
+            .hero-buttons { justify-content: center }
+            .hero-image-wrapper { order: -1 }
+            .hero-image-frame { width: 300px }
+            .hero-float-card { right: 0; bottom: -16px }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .about-content { order: -1 }
+
+            .store-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .store-content { order: -1 }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-map { min-height: 300px }
+
+            .stats-row { justify-content: center }
+            .header-social { display: none }
+
+            .team-section { padding: 60px 16px }
+            .team-grid {
+                grid-template-columns: 1fr;
+                max-width: 360px;
+                gap: 24px;
+            }
+            .team-photo img { height: 300px }
+            .team-name { font-size: 20px; margin: 16px 16px 12px }
+            .team-bio { font-size: 13px; padding: 0 16px; margin-bottom: 8px }
+
+            .branch-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .branch-content { order: -1 }
+            .branch-stats { justify-content: center }
+        }
+
+        @media (max-width: 500px) {
+            .hero-image-frame { width: 260px }
+            .hero-float-card { display: none }
+            .promo-text { font-size: 16px }
+            .service-card { padding: 28px 20px }
+            .stats-row { gap: 24px }
+            .stat-number { font-size: 28px }
+            .footer-inner { flex-direction: column; text-align: center }
+        }
+
+        /* ===== TEAM ===== */
+        .team-section {
+            padding: 100px 24px;
+            background: var(--teal-dark);
+            position: relative;
+        }
+        .team-section .section-title { color: var(--white) }
+
+        .team-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .team-card {
+            background: var(--teal);
+            border-radius: 20px;
+            overflow: hidden;
+            text-align: center;
+            border: 1px solid rgba(198,166,84,0.12);
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+            object-position: top;
+            display: block;
+        }
+
+        .team-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 20px 24px 16px;
+        }
+
+        .team-bio {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.85;
+            padding: 0 24px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+        .team-bio strong { color: rgba(255,255,255,0.9) }
+
+        .team-instagram {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(198,166,84,0.1);
+            border: 1px solid rgba(198,166,84,0.25);
+            border-radius: 12px;
+            margin: 12px 0 24px;
+            transition: all 0.3s ease;
+        }
+        .team-instagram:hover { background: var(--gold); border-color: var(--gold) }
+        .team-instagram svg { width: 18px; height: 18px; color: var(--gold); transition: color 0.3s }
+        .team-instagram:hover svg { color: var(--teal-dark) }
+
+        /* ===== BRANCH ===== */
+        .branch-section {
+            padding: 80px 24px;
+            background: var(--white);
+        }
+
+        .branch-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .branch-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        .branch-image img {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .branch-content { text-align: right }
+        .branch-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .branch-title {
+            font-size: clamp(26px, 3.5vw, 36px);
+            font-weight: 800;
+            color: var(--teal-dark);
+            line-height: 1.3;
+            margin-bottom: 16px;
+        }
+        .branch-text {
+            font-size: 16px;
+            color: var(--text-light);
+            line-height: 1.9;
+            margin-bottom: 28px;
+        }
+
+        .branch-stats {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .branch-stat { text-align: center }
+        .branch-stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .branch-stat-label {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* ===== ACCESSIBILITY PAGE ===== */
+        .accessibility-section {
+            padding: 60px 24px;
+            background: var(--cream);
+            border-top: 1px solid rgba(0,0,0,0.06);
+        }
+        .accessibility-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: right;
+        }
+        .accessibility-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--teal-dark);
+            margin-bottom: 24px;
+        }
+        .accessibility-text {
+            font-size: 15px;
+            color: var(--text-light);
+            line-height: 1.9;
+            margin-bottom: 16px;
+        }
+        .accessibility-text strong { color: var(--text) }
+        .accessibility-text a { color: var(--gold); font-weight: 600 }
+
+        /* ===== SR-ONLY ===== */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            border: 0;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <div class="header-inner">
+            <a href="#hero" class="logo-link" aria-label="אופטיקס - חזרה לראש העמוד">
+                <img src="assets/logo.jpg" alt="אופטיקס" class="logo-img" width="120" height="44">
+            </a>
+
+            <nav class="nav-desktop">
+                <a href="#hero" class="active">בית</a>
+                <a href="#services">שירותים</a>
+                <a href="#about">אודות</a>
+                <a href="#contact">צור קשר</a>
+                <a href="tel:0549606040" class="nav-cta">חייגו עכשיו</a>
+            </nav>
+
+            <div class="header-social">
+                <a href="https://www.facebook.com/people/%D7%90%D7%95%D7%A4%D7%98%D7%99%D7%A7%D7%94-%D7%90%D7%95%D7%A4%D7%98%D7%99%D7%A7%D7%A1/61568463905503/" target="_blank" rel="noopener" aria-label="פייסבוק">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/o.optix/" target="_blank" rel="noopener" aria-label="אינסטגרם">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/@optixoptic" target="_blank" rel="noopener" aria-label="טיקטוק">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.46 6.26 6.26 0 001.82-4.44V8.76a8.24 8.24 0 004.76 1.51V6.82a4.83 4.83 0 01-1-.13z"/></svg>
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="תפריט ניווט">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+        </div>
+
+    </header>
+
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMenu()"></div>
+    <nav class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="closeMenu()" aria-label="סגור תפריט">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <a href="#hero" onclick="closeMenu()">בית</a>
+        <a href="#services" onclick="closeMenu()">שירותים</a>
+        <a href="#about" onclick="closeMenu()">אודות</a>
+        <a href="#contact" onclick="closeMenu()">צור קשר</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-pattern"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    הראייה שלך<br>
+                    <span class="gold">בידיים הטובות ביותר</span>
+                </h1>
+                <p class="hero-subtitle">
+                    אופטיקס כרכור - שירות אופטי מקצועי ואישי.
+                    בדיקות ראייה מקיפות, התאמה מדויקת של משקפיים ועדשות מגע מהמותגים המובילים.
+                </p>
+                <div class="hero-buttons">
+                    <a href="tel:0549606040" class="btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        לתיאום בדיקת ראייה
+                    </a>
+                    <a href="#services" class="btn-secondary">
+                        השירותים שלנו
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-image-wrapper">
+                <div class="hero-image-frame">
+                    <img src="assets/hero.jpeg" alt="אופטיקס כרכור - 2 זוגות משקפיים ב-400 שח בלבד" width="380" height="670" loading="eager">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services" id="services">
+        <div class="section-header reveal">
+            <span class="section-label">השירותים שלנו</span>
+            <h2 class="section-title">פתרונות ראייה מקצועיים</h2>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/></svg>
+                </div>
+                <h3 class="service-title">בדיקות ראייה</h3>
+                <p class="service-desc">בדיקות ראייה מקיפות לכל הגילאים, באמצעות ציוד מתקדם ומקצועי</p>
+            </div>
+
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                </div>
+                <h3 class="service-title">עדשות מגע</h3>
+                <p class="service-desc">התאמת עדשות מגע בהתאמה אישית מדויקת לעיניים שלך</p>
+            </div>
+
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="4"/><circle cx="18" cy="12" r="4"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+                </div>
+                <h3 class="service-title">משקפי שמש</h3>
+                <p class="service-desc">מבחר רחב של משקפי שמש איכותיים מהמותגים המובילים בעולם</p>
+            </div>
+
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <h3 class="service-title">בדיקות רישוי וצבא</h3>
+                <p class="service-desc">בדיקות ראייה למשרד הרישוי ולצבא בהתאם לדרישות הרשמיות</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM -->
+    <section class="team-section" id="about">
+        <div class="section-header reveal">
+            <span class="section-label">הצוות שלנו</span>
+            <h2 class="section-title">המומחים שלנו לראייה</h2>
+        </div>
+        <div class="team-grid">
+            <div class="team-card reveal">
+                <div class="team-photo">
+                    <img src="assets/doaa.webp" alt="דועא ג'מאל" width="400" height="360" loading="lazy">
+                </div>
+                <h3 class="team-name">דועא ג'מאל</h3>
+                <p class="team-bio">אופטיקאית מוסמכת בעלת רישיון ממשרד העבודה.</p>
+                <p class="team-bio"><strong>קורסים מקצועיים/השתלמויות:</strong> בניהול מיופיה. הדרכות בהרכבת עדשות מגע. השתלמויות בנושא עדשות אופטלמיות חד מוקדי ומולטי פוקל.</p>
+                <p class="team-bio">בעלת ניסיון רב בתחום של מעל עשור בהתאמת מסגרות ועדשות לשביעות רצון הלקוח ולראייה טובה.</p>
+                <a href="https://www.instagram.com/doaa.jammal/" target="_blank" rel="noopener" class="team-instagram" aria-label="אינסטגרם דועא">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+            </div>
+            <div class="team-card reveal">
+                <div class="team-photo">
+                    <img src="assets/yossi.webp" alt="יוסי כהן" width="400" height="360" loading="lazy">
+                </div>
+                <h3 class="team-name">יוסי כהן</h3>
+                <p class="team-bio">אופטומטריסט בוגר אוניברסיטת בר אילן. בעל רישיון ממשרד הבריאות ורישיון אופטיקאי ממשרד העבודה.</p>
+                <p class="team-bio">עובד גם בתחום הסרת משקפיים בלייזר בבית החולים אסותא.</p>
+                <p class="team-bio"><strong>קורסים מקצועיים:</strong> אורטואופטיקה מאוניברסיטת סימלוויס בהונגריה.</p>
+                <p class="team-bio">ניהול מיופיה, התאמת עדשות מגע מיוחדות ועדשות מולטיפוקל, זיהוי ביומטריה עדשות תוך עיניות וקרטקט, דימות אוקולרי ופיענוח.</p>
+                <p class="team-bio">בעל ניסיון רב בתחום של מעל עשור. דאגה ואחריות לראייה של הלקוחות. תוך התאמה מיטבית של עדשות ומשקפיים.</p>
+                <a href="https://www.instagram.com/yossi_cohen_optometrist/" target="_blank" rel="noopener" class="team-instagram" aria-label="אינסטגרם יוסי">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <div class="section-header reveal">
+            <span class="section-label">צור קשר</span>
+            <h2 class="section-title">בואו לבקר אותנו</h2>
+            <p class="section-subtitle">נשמח לענות על כל שאלה ולתאם לכם בדיקת ראייה</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-info reveal">
+                <a href="tel:0549606040" class="contact-card">
+                    <div class="contact-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <div>
+                        <div class="contact-card-label">טלפון</div>
+                        <div class="contact-card-value">054-960-6040</div>
+                    </div>
+                </a>
+
+                <a href="https://maps.google.com/?q=המייסדים+44+כרכור" target="_blank" rel="noopener" class="contact-card">
+                    <div class="contact-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <div>
+                        <div class="contact-card-label">כתובת</div>
+                        <div class="contact-card-value">המייסדים 44, כרכור</div>
+                    </div>
+                </a>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <div>
+                        <div class="contact-card-label">שעות פתיחה</div>
+                        <div class="contact-card-value">
+                            ראשון-חמישי: 8:30-19:00<br>
+                            שישי: 8:30-14:00
+                        </div>
+                    </div>
+                </div>
+
+                <a href="mailto:optixoptic@gmail.com" class="contact-card">
+                    <div class="contact-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <div>
+                        <div class="contact-card-label">אימייל</div>
+                        <div class="contact-card-value">optixoptic@gmail.com</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="contact-map">
+                <iframe
+                    src="https://www.google.com/maps?q=%D7%94%D7%9E%D7%99%D7%99%D7%A1%D7%93%D7%99%D7%9D+44+%D7%9B%D7%A8%D7%9B%D7%95%D7%A8&output=embed"
+                    allowfullscreen
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="מפת הגעה לאופטיקס כרכור">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer" style="padding: 20px 24px">
+        <div class="footer-bottom" style="margin: 0; padding: 0; border: none">
+            <p class="footer-copy">כל הזכויות שמורות &copy; 2025 אופטיקס כרכור &nbsp;|&nbsp; <a href="nagishut.html" style="color: rgba(255,255,255,0.5); transition: color 0.3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">הצהרת נגישות</a></p>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP FAB -->
+    <a href="https://wa.me/972549606040" target="_blank" rel="noopener" class="whatsapp-fab" aria-label="וואטסאפ">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.553 4.12 1.522 5.857L0 24l6.335-1.652A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.97 0-3.837-.53-5.452-1.459l-.391-.232-3.757.98.998-3.648-.255-.404A9.72 9.72 0 0 1 2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75z"/></svg>
+    </a>
+
+
+    <script>
+        // Hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+            mobileOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+
+        function closeMenu() {
+            mobileMenu.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        }, { passive: true });
+
+        // Active nav on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-desktop a:not(.nav-cta)');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 100;
+                if (window.scrollY >= top) current = section.getAttribute('id');
+            });
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        }, { passive: true });
+    </script>
+
+</body>
+</html>
