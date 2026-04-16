@@ -1092,6 +1092,19 @@
             border: 0;
         }
 
+        @media (max-width: 900px) {
+            .team-section { padding: 60px 16px }
+            .team-grid {
+                grid-template-columns: 1fr !important;
+                max-width: 340px;
+                gap: 24px;
+            }
+            .team-photo img { height: 280px }
+            .team-name { font-size: 20px; margin: 16px 16px 12px }
+            .team-bio { font-size: 13px; padding: 0 16px; margin-bottom: 8px; line-height: 1.7 }
+            .team-instagram { margin: 8px 0 20px }
+        }
+
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
